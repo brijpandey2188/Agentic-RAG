@@ -15,10 +15,14 @@ class ChatRequest(BaseModel):
 
 @app.post("/api/v1/chat")
 async def chat(request: ChatRequest):
+
     initial_state = {
         "messages": [HumanMessage(content=request.message)],
         "user_id": request.user_id,
-        "needs_web_search": False
+        "needs_web_search": False,
+        "needs_handoff": False,
+        "retry_count": 0,
+        "grade": "",
     }
 
     final_state = await agent_graph.ainvoke(initial_state)

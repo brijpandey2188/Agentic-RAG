@@ -17,6 +17,7 @@ async def run(question: str):
         "messages": [("user", question)],
         "user_id": None,
         "needs_web_search": False,
+        "needs_handoff": False,
         "retry_count": 0,
         "grade": "",
     })
@@ -24,7 +25,7 @@ async def run(question: str):
 
 
 async def main():
-    # python test_agent.py "my question"  -> सिर्फ़ वही question चलेगा
+    # python test_agent.py "my question"  -> only taht question will run
     questions = [" ".join(sys.argv[1:])] if len(sys.argv) > 1 else QUESTIONS
     for q in questions:
         await run(q)

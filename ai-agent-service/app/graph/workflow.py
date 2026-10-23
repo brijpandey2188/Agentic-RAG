@@ -25,13 +25,14 @@ def create_agent_workflow():
         }
     )
 
-    # CHANGED: was tools -> agent
     workflow.add_edge("tools", "grade_documents")
+
     workflow.add_conditional_edges(
         "grade_documents",
         route_after_grading,
         {"agent": "agent", "rewrite_query": "rewrite_query"},
     )
+
     workflow.add_edge("rewrite_query", "agent")
 
     return workflow.compile()
